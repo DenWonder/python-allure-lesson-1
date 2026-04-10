@@ -1,0 +1,16 @@
+Создание ветки для github pages:
+
+git checkout --orphan gh-pages
+git reset --hard
+git commit --allow-empty -m "Init gh-pages"
+git push origin gh-pages
+git checkout main
+
+
+запуск тестов с указанием дирректории аллюр результатов:
+
+pytest --alluredir=allure-results
+
+Генерация аллюр отчёта (локально):
+
+allure serve .\allure-results\
