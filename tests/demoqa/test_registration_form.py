@@ -1,5 +1,3 @@
-from time import sleep
-
 import allure
 from selene import have, command
 from selene.support.shared import browser
@@ -9,7 +7,7 @@ from selene.support import by
 @allure.story("Успешное заполнение всех полей")
 @allure.label("owner", "D Chudnov")
 @allure.link("https://demoqa.com", name="Testing")
-def test_form_allure_dynamic_steps():
+def test_form_allure_dynamic_steps(setup_browser):
     with allure.step("Open registrations form"):
         browser.open("https://demoqa.com/automation-practice-form")
         browser.element(".practice-form-wrapper").should(have.text("Student Registration Form"))
@@ -60,7 +58,7 @@ def test_form_allure_dynamic_steps():
 @allure.story("Динамические шаги")
 @allure.label("owner", "D Chudnov")
 @allure.link("https://demoqa.com", name="Testing")
-def test_form_allure_dynamic_steps_failed():
+def test_form_allure_dynamic_steps_failed(setup_browser):
     with allure.step("Open registrations form"):
         browser.open("https://demoqa.com/automation-practice-form")
         browser.element(".practice-form-wrapper").should(have.text("Student Registration Form"))
@@ -111,7 +109,7 @@ def test_form_allure_dynamic_steps_failed():
 @allure.feature("Форма регистрации")
 @allure.story("Разные пользователи в ассерте и тесте")
 @allure.label("owner", "Чуднов")
-def test_form_allure_decorator_steps():
+def test_form_allure_decorator_steps(setup_browser):
     open_registrations_form()
     fill_registration_form_data()
     check_results()

@@ -2,6 +2,7 @@ import os
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selene.support.shared import browser
 from selene import Browser, Config
 from utils import attach
 
@@ -26,13 +27,20 @@ def setup_browser():
             }
         })
 
-    driver = webdriver.Remote(command_executor=selenoid_url, options=options) \
-        if selenoid_url else webdriver.Chrome(options=options)
+    if selenoid_url:
+        driver = webdriver.Remote(
+            command_executor=selenoid_url,
+            options=options
+        )
+        browser.config.driver = driver
+    else:
+        browser.config.driver_options = options
 
-    browser = Browser(Config(driver))
     yield browser
 
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
+    if os.getenv("SELENOID_URL"):
+        attach.add_video(browser)
     browser.quit()
