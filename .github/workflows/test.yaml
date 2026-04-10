@@ -26,7 +26,8 @@ jobs:
       - name: Run tests
         run: |
           pytest --alluredir=allure-results
-
+        env:
+          CI: true
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
@@ -48,9 +49,3 @@ jobs:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_branch: gh-pages
             publish_dir: allure-history
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
-          CI: true  # уже выставлено автоматически, но можно явно
-          HEADLESS: "true"
