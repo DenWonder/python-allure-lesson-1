@@ -18,13 +18,10 @@ def setup_browser():
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--window-size=1920,1080")
     elif selenoid_url:
-        options.capabilities.update({
-            "browserName": "chrome",
-            "browserVersion": "128.0",
-            "selenoid:options": {
-                "enableVNC": True,
-                "enableVideo": True
-            }
+        options.set_capability("selenoid:options", {
+            "enableVNC": True,
+            "enableVideo": True,
+            "videoName": f"{browser.driver.session_id}.mp4" if hasattr(browser, 'driver') else "video.mp4"
         })
 
     if selenoid_url:
@@ -41,7 +38,8 @@ def setup_browser():
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
-    attach.add_video(browser)
+    if selenoid_url:
+        attach.add_video(browser)
     if os.getenv("SELENOID_URL"):
         attach.add_video(browser)
     browser.quit()
