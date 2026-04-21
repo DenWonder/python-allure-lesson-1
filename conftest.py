@@ -41,6 +41,7 @@ def setup_browser():
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
+    attach.add_video(browser)
     if os.getenv("SELENOID_URL"):
         attach.add_video(browser)
     browser.quit()
