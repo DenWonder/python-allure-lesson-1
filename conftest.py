@@ -9,35 +9,29 @@ from utils import attach
 
 @pytest.fixture(scope='function')
 def setup_browser():
-    selenoid_url = os.getenv("SELENOID_URL")
+    options = Options()
+    selenoid_url = os.getenv("SELENOID_URL", "http://selenoid:4444/wd/hub")
 
-    if selenoid_url:
-        driver = webdriver.Remote(
-            command_executor=selenoid_url,
-            desired_capabilities={
-                "browserName": "chrome",
-                "browserVersion": "128.0",
-                "selenoid:options": {
-                    "enableVNC": True,
-                    "enableVideo": True
-                }
-            }
-        )
-        browser = Browser(Config(driver=driver))
-    else:
-        options = Options()
-        if os.getenv("CI"):
-            options.add_argument("--headless")
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
-            options.add_argument("--window-size=1920,1080")
-        browser = Browser(Config(driver_options=options))
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "128.0",
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    options.capabilities.update(selenoid_capabilities)
+
+    driver = webdriver.Remote(
+        command_executor=selenoid_url,
+        options=options
+    )
+    browser = Browser(Config(driver))
 
     yield browser
 
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
-    if selenoid_url:
-        attach.add_video(browser)
+    attach.add_video(browser)
     browser.quit()
