@@ -1,6 +1,8 @@
+import os
 import allure
 from allure_commons.types import AttachmentType
 
+selenoid_url = os.getenv("SELENOID_URL")
 
 def add_screenshot(browser):
     png = browser.driver.get_screenshot_as_png()
@@ -18,8 +20,18 @@ def add_html(browser):
 
 
 def add_video(browser):
-    video_url = "https://selenoid.autotests.cloud/video/" + browser.driver.session_id + ".mp4"
-    # video_url = "http://selenoid:4444/video/" + browser.driver.session_id + ".mp4"
+
+    # Берём базовый URL без /wd/hub и credentials
+    if "@" in selenoid_url:
+        # https://user1:1234@selenoid.autotests.cloud/wd/hub -> https://selenoid.autotests.cloud
+        base = selenoid_url.split("@")[1].replace("/wd/hub", "")
+        protocol = selenoid_url.split("://")[0]
+        video_url = f"{protocol}://{base}/video/{browser.driver.session_id}.mp4"
+    else:
+        # http://selenoid:4444/wd/hub -> http://selenoid:4444
+        base = selenoid_url.replace("/wd/hub", "")
+        video_url = f"{base}/video/{browser.driver.session_id}.mp4"
+
     html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
            + video_url \
            + "' type='video/mp4'></video></body></html>"

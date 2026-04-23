@@ -1,0 +1,41 @@
+{
+  "chrome": {
+    "default": "128.0",
+    "versions": {
+      "128.0": {
+        "image": "selenoid/chrome:128.0",
+        "port": "4444",
+        "path": "/",
+        "recorder": {
+          "image": "selenoid/video-recorder:latest-release"
+        }
+      }
+    }
+  },
+  "firefox": {
+    "default": "130.0",
+    "versions": {
+      "130.0": {
+        "image": "selenoid/firefox:130.0",
+        "port": "4444",
+        "path": "/wd/hub",
+        "recorder": {
+          "image": "selenoid/video-recorder:latest-release"
+        }
+      }
+    }
+  },
+  "MicrosoftEdge": {
+    "default": "128.0",
+    "versions": {
+      "128.0": {
+        "image": "browsers/edge:128.0",
+        "port": "4444",
+        "path": "/",
+        "recorder": {
+          "image": "selenoid/video-recorder:latest-release"
+        }
+      }
+    }
+  }
+}
