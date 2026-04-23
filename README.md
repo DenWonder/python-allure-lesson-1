@@ -119,10 +119,10 @@ https://ВАШ_АККАУНТ.github.io/ВАШ_РЕПОЗИТОРИЙ/
 
 ### Важные моменты
 
-- `CI: true` — активирует headless-режим браузера в `conftest.py`, без него Chrome упадёт (нет дисплея)
-- `permissions: contents: write` — обязательно, иначе workflow не сможет записать в ветку `gh-pages`
-- `continue-on-error: true` на шаге получения истории — нужно для первого запуска, когда ветки `gh-pages` ещё нет
-- `keep_reports: 20` — хранить историю последних 20 сборок (можно изменить)
+- `CI: true` - активирует headless-режим браузера в `conftest.py`, без него Chrome упадёт (нет дисплея)
+- `permissions: contents: write` - обязательно, иначе workflow не сможет записать в ветку `gh-pages`
+- `continue-on-error: true` на шаге получения истории - нужно для первого запуска, когда ветки `gh-pages` ещё нет
+- `keep_reports: 20` - хранить историю последних 20 сборок (можно изменить)
 
 ### Локальная сборка allure отчёта:
 
@@ -173,7 +173,7 @@ jenkins-docker/
 
 ### Dockerfile
 
-Расширяем базовый образ Jenkins — добавляем Python:
+Расширяем базовый образ Jenkins - добавляем Python:
 
 ```dockerfile
 FROM jenkins/jenkins:lts-jdk25
@@ -558,7 +558,7 @@ Set-Service -Name Jenkins -StartupType Disabled
 
 ### Docker не запущен
 
-При ошибке `failed to connect to the docker API` — запустите Docker Desktop и дождитесь статуса **Engine running**.
+При ошибке `failed to connect to the docker API` - запустите Docker Desktop и дождитесь статуса **Engine running**.
 
 ---
 
@@ -566,7 +566,7 @@ Set-Service -Name Jenkins -StartupType Disabled
 
 Для каждого браузерного теста в секции **Tear down** доступны:
 
-- 📸 **screenshot** — скриншот в момент завершения теста
-- 📋 **browser_logs** — логи консоли браузера
-- 🌐 **page_source** — HTML-код страницы
-- 🎥 **video** — запись всего прогона теста (при использовании Selenoid)
+- 📸 **screenshot** - скриншот в момент завершения теста
+- 📋 **browser_logs** - логи консоли браузера
+- 🌐 **page_source** - HTML-код страницы
+- 🎥 **video** - запись всего прогона теста (при использовании Selenoid)
